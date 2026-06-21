@@ -1,0 +1,225 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1.2cm,top=1.0cm,bottom=1.0cm]{geometry}
+\usepackage{multicol}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{tabularx}
+
+% Cores
+\definecolor{accent}{HTML}{2E86C1}
+\definecolor{keybg}{HTML}{E8E8E8}
+\definecolor{darktext}{HTML}{1A1A1A}
+
+% Sem numera\c{c}\~ao de p\'agina
+\pagestyle{empty}
+
+% Formato de se\c{c}\~ao: sem risco, compacto
+\titleformat{\section}
+  {\large\bfseries\color{accent}}
+  {}{0em}{}
+\titlespacing*{\section}{0pt}{6pt}{3pt}
+
+% Comando para tecla formatada
+\newcommand{\key}[1]{{\small\texttt{#1}}}
+\newcommand{\desc}[1]{{\small #1}}
+
+% Comando para linha de atalho
+\newcommand{\K}[2]{\key{#1} \hfill \desc{#2}\\[1.5pt]}
+
+% Espa\c{c}amento entre colunas
+\setlength{\columnsep}{14pt}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+{\LARGE\bfseries\color{darktext} Neovim para Escrita Acad\^emica}\\[3pt]
+{\small\color{gray} Refer\^encia r\'apida $\cdot$ Navegar, editar e revisar a sua tese}
+\end{center}
+
+\vspace{4pt}
+
+\begin{multicols}{3}
+\raggedcolumns
+
+% ============================================================
+\section{Comece a escrever}
+\K{i}{Escrever antes do cursor}
+\K{a}{Escrever depois do cursor}
+\K{I}{Escrever no in\'icio da linha}
+\K{A}{Escrever no final da linha}
+\K{o}{Novo par\'agrafo/linha abaixo}
+\K{O}{Novo par\'agrafo/linha acima}
+\K{Esc}{Parar de escrever (normal)}
+\desc{No modo normal as teclas comandam o texto; em inser\c{c}\~ao voc\^e digita.}
+
+% ============================================================
+\section{Navegar no texto}
+\K{h / j / k / l}{Esq, baixo, cima, dir}
+\K{w / b}{Pr\'oxima / anterior palavra}
+\K{e}{At\'e o final da palavra}
+\K{0}{In\'icio da linha}
+\K{\^{}}{Primeira palavra da linha}
+\K{\$}{Final da linha}
+\K{( / )}{Frase anterior / pr\'oxima}
+\K{\{ / \}}{Par\'agrafo anterior / pr\'oximo}
+\K{gg}{In\'icio do documento}
+\K{G}{Final do documento}
+\K{:\{n\}}{Ir para a linha \{n\}}
+\K{Ctrl+d / Ctrl+u}{Meia p\'agina baixo / cima}
+\K{H / M / L}{Topo / meio / final da tela}
+\K{f\{c\}}{Saltar at\'e o caractere \{c\}}
+\K{; / ,}{Repetir / inverter o salto f}
+
+% ============================================================
+\section{Linhas longas (wrap)}
+\desc{Quando o par\'agrafo quebra na tela:}
+\vspace{3pt}
+\K{gj / gk}{Descer / subir por linha visual}
+\K{:set wrap}{Quebra de linha suave}
+\K{:set linebreak}{N\~ao cortar palavras}
+
+% ============================================================
+\section{Editar prosa}
+\K{ciw}{Trocar a palavra inteira}
+\K{cis}{Trocar a frase inteira}
+\K{cip}{Trocar o par\'agrafo inteiro}
+\K{cc}{Reescrever a linha}
+\K{c\{mov.\}}{Trocar at\'e o movimento}
+\K{C}{Trocar at\'e o final da linha}
+\K{daw}{Apagar a palavra (e o espa\c{c}o)}
+\K{das}{Apagar a frase inteira}
+\K{dap}{Apagar o par\'agrafo inteiro}
+\K{dd}{Apagar a linha}
+\K{x}{Apagar um caractere}
+\K{r\{c\}}{Corrigir uma letra (typo)}
+\K{J}{Juntar a pr\'oxima linha \`a atual}
+\K{> / <}{Recuar / avan\c{c}ar indenta\c{c}\~ao}
+\K{.}{Repetir a \'ultima edi\c{c}\~ao}
+
+% ============================================================
+\section{Recortar, copiar, colar}
+\K{yiw / yip}{Copiar palavra / par\'agrafo}
+\K{yy}{Copiar a linha}
+\K{y\{mov.\}}{Copiar at\'e o movimento}
+\K{dd / d\{mov.\}}{Recortar linha / movimento}
+\K{p / P}{Colar depois / antes}
+\K{"+y / "+p}{Copiar / colar via clipboard}
+
+% ============================================================
+\section{Mai\'uscula / min\'uscula}
+\K{\~{}}{Alternar caixa da letra}
+\K{guiw}{Palavra em min\'uscula}
+\K{gUiw}{Palavra em MAI\'USCULA}
+\K{guis / gUis}{Frase em min/MAI\'USCULA}
+
+% ============================================================
+\section{Selecionar (visual)}
+\K{v}{Selecionar caractere a caractere}
+\K{V}{Selecionar linha inteira}
+\K{viw}{Selecionar a palavra}
+\K{vis}{Selecionar a frase}
+\K{vip}{Selecionar o par\'agrafo}
+\desc{Depois: \texttt{d} apaga, \texttt{c} troca, \texttt{y} copia.}
+
+% ============================================================
+\section{Objetos de texto}
+
+Use ap\'os o operador (c, d, y, v):
+
+\texttt{i} = interno (s\'o o conte\'udo)\\
+\texttt{a} = ao redor (inclui espa\c{c}o/marcas)
+
+\vspace{3pt}
+\K{iw / aw}{Palavra}
+\K{is / as}{Frase}
+\K{ip / ap}{Par\'agrafo}
+\K{i" / a"}{Dentro / ao redor de aspas}
+\K{i( / a(}{Dentro / ao redor de par\^enteses}
+\K{i\{ / a\{}{Dentro / ao redor de chaves}
+
+% ============================================================
+\section{Buscar no texto}
+\K{/texto}{Buscar para frente}
+\K{?texto}{Buscar para tr\'as}
+\K{n / N}{Pr\'oxima / anterior ocorr\^encia}
+\K{*}{Buscar a palavra sob o cursor}
+
+% ============================================================
+\section{Revisar e substituir}
+\K{:s/velho/novo/}{Trocar na linha (1\textsuperscript{a})}
+\K{:s/velho/novo/g}{Trocar todas na linha}
+\K{:\%s/velho/novo/g}{Trocar em todo o texto}
+\K{:\%s/velho/novo/gc}{Trocar com confirma\c{c}\~ao}
+\desc{O \texttt{c} no fim pede confirma\c{c}\~ao a cada troca: \'otimo para revis\~ao.}
+
+% ============================================================
+\section{Corretor ortogr\'afico}
+\K{:set spell}{Ligar o corretor}
+\K{:set spelllang=pt\_br}{Idioma portugu\^es}
+\K{:set nospell}{Desligar o corretor}
+\K{]s / [s}{Pr\'oximo / anterior erro}
+\K{z=}{Sugest\~oes de corre\c{c}\~ao}
+\K{zg}{Adicionar palavra ao dicion\'ario}
+\K{zw}{Marcar palavra como incorreta}
+
+% ============================================================
+\section{Desfazer / refazer}
+\K{u}{Desfazer}
+\K{Ctrl+r}{Refazer}
+\K{U}{Desfazer mudan\c{c}as na linha}
+
+% ============================================================
+\section{Marcas (ir e voltar)}
+\K{m\{a-z\}}{Marcar este ponto do texto}
+\K{`\{marca\}}{Voltar \`a marca (exata)}
+\K{'\{marca\}}{Voltar \`a marca (linha)}
+\K{``}{Voltar de onde voc\^e saltou}
+\K{:marks}{Listar as marcas}
+\desc{Pule entre cap\'itulo, notas e refer\^encias.}
+
+% ============================================================
+\section{Dobrar se\c{c}\~oes (folds)}
+\desc{Recolher partes longas para ver a estrutura:}
+\vspace{3pt}
+\K{za}{Abrir/fechar a dobra}
+\K{zR / zM}{Abrir / fechar todas}
+
+% ============================================================
+\section{Salvar e sair}
+\K{:w}{Salvar}
+\K{:wq / ZZ}{Salvar e sair}
+\K{:q}{Sair}
+\K{:q!}{Sair sem salvar}
+\K{:e arquivo}{Abrir outro arquivo}
+\K{:w novo.md}{Salvar com outro nome}
+
+% ============================================================
+\section{V\'arios documentos}
+\desc{Cap\'itulos e notas abertos ao mesmo tempo:}
+\vspace{3pt}
+\K{:e arquivo}{Abrir um arquivo}
+\K{:bn / :bp}{Pr\'oximo / anterior documento}
+\K{:ls}{Listar documentos abertos}
+\K{Ctrl+w v}{Dividir a tela ao lado}
+\K{Ctrl+w s}{Dividir acima/abaixo}
+\K{Ctrl+w h/j/k/l}{Pular entre as divis\~oes}
+
+% ============================================================
+\section{Combinando comandos}
+\desc{A gram\'atica do Vim: verbo + quantidade + objeto.}
+\vspace{3pt}
+\K{ciw}{(trocar)(palavra)}
+\K{das}{(apagar)(uma frase)}
+\K{yap}{(copiar)(um par\'agrafo)}
+\K{d2w}{(apagar)(2)(palavras)}
+\K{3dd}{(apagar)(3)(linhas)}
+\K{>ip}{(recuar)(par\'agrafo)}
+\K{ci"}{(trocar)(dentro das aspas)}
+\K{gUiw}{(MAI\'USCULA)(palavra)}
+
+\end{multicols}
+\end{document}
